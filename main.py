@@ -29,9 +29,7 @@ if __name__ == "__main__":
         torch.set_default_dtype(torch.float32)'''
 
     context.logger.info(f"Executing: {context.config_file} Run: {context.run_number}")
-    context.logger.info(
-        "Creating the evaluation manager......................................................."
-    )
+    context.logger.info("Creating the evaluation manager.......................................................")
 
     
     if 'do-pairs' in context.conf:
@@ -41,8 +39,6 @@ if __name__ == "__main__":
         context.logger.info("Creating the evaluators...............................................................")
         eval_manager = EvaluatorManager(context)
 
-    context.logger.info(
-        "Evaluating the explainers............................................................."
-    )
+    context.logger.info("Evaluating the explainers.............................................................")
 
     eval_manager.evaluate()

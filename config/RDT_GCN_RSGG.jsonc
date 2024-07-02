@@ -28,13 +28,13 @@
       "oracle": {
         "class": "src.oracle.nn.torch.OracleTorch",
         "parameters": {
-            "epochs": 10,
+            "epochs": 100,
             "batch_size": 64, 
             "optimizer": {
                 "class": "torch.optim.AdamW",
                 "parameters": {
-                    "lr":1e-3, //1e-3, 1e-2
-                    "weight_decay":0 // 0, 1e-1, 1e-2, 1e-3, 1e-4
+                    "lr":1e-2, //1e-3, 1e-2
+                    "weight_decay":1e-1 // 0, 1e-1, 1e-2, 1e-3, 1e-4
                 }
               },
             "loss_fn": {
@@ -46,10 +46,10 @@
             "model": {
               "class": "src.oracle.nn.gcn.DownstreamGCN",
               "parameters": {
-                "num_conv_layers":1,  
-                "num_dense_layers":4, 
-                "conv_booster":3, 
-                "linear_decay":1.5 
+                "num_conv_layers":2,  
+                "num_dense_layers":2, 
+                "conv_booster":2, 
+                "linear_decay":2 
               }
             }
           }
@@ -62,7 +62,14 @@
     
     
     
-    "explainers": [{"class": "src.explainer.generative.rsgg.RSGG","parameters":{"epochs": 100}}],
+    "explainers": [
+      {
+        "class": "src.explainer.generative.rsgg.RSGG",
+        "parameters": {
+          "epochs": 100
+        }
+      }
+    ],
     "compose_mes" : "config/snippets/default_metrics.json",
     "compose_strs" : "config/snippets/default_store_paths.json"
 }

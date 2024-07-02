@@ -1,0 +1,36 @@
+2024-07-02 12:50:07,1930488966 | INFO | 28488 - Executing: config/RDT_GCN_RSGG.jsonc Run: -1
+2024-07-02 12:50:07,1930488966 | INFO | 28488 - Creating the evaluation manager.......................................................
+2024-07-02 12:50:07,1930488967 | INFO | 28488 - Creating the PAIRED evaluators...............................................................
+2024-07-02 12:50:09,1930491557 | INFO | 28488 - Loading: REDDIT-afb11d5932fc65bf73e20d26097e9003
+2024-07-02 12:50:39,1930521295 | INFO | 28488 - Created: REDDIT-afb11d5932fc65bf73e20d26097e9003
+2024-07-02 12:51:02,1930544485 | INFO | 28488 - Instantiating: src.oracle.nn.gcn.DownstreamGCN
+2024-07-02 12:51:02,1930544489 | INFO | 28488 - Instantiating: torch.optim.AdamW
+2024-07-02 12:51:02,1930544490 | INFO | 28488 - Instantiating: torch.nn.CrossEntropyLoss
+2024-07-02 12:51:05,1930547030 | INFO | 28488 - Loading: OracleTorch-d1c78a0fd160cb8070d80e29115aeac0
+2024-07-02 12:51:06,1930547891 | INFO | 28488 - Created: OracleTorch-d1c78a0fd160cb8070d80e29115aeac0
+2024-07-02 12:51:06,1930547896 | INFO | 28488 - Instantiating: src.explainer.generative.gans.graph.model.GAN
+2024-07-02 12:51:06,1930547982 | INFO | 28488 - Instantiating: src.explainer.generative.gans.graph.res_gen.ResGenerator
+2024-07-02 12:51:06,1930547984 | INFO | 28488 - Instantiating: torch.optim.SGD
+2024-07-02 12:51:06,1930547984 | INFO | 28488 - Instantiating: src.explainer.generative.gans.graph.discriminators.SimpleDiscriminator
+2024-07-02 12:51:06,1930547985 | INFO | 28488 - Instantiating: torch.optim.SGD
+2024-07-02 12:51:06,1930547985 | INFO | 28488 - Instantiating: torch.nn.BCELoss
+2024-07-02 12:51:08,1930550522 | INFO | 28488 - Loading: GAN-fba485cce16c6096bb1c6d77e4b86dd4
+2024-07-02 12:51:09,1930551380 | INFO | 28488 - Instantiating: src.explainer.generative.gans.graph.model.GAN
+2024-07-02 12:51:09,1930551380 | INFO | 28488 - Instantiating: src.explainer.generative.gans.graph.res_gen.ResGenerator
+2024-07-02 12:51:09,1930551381 | INFO | 28488 - Instantiating: torch.optim.SGD
+2024-07-02 12:51:09,1930551382 | INFO | 28488 - Instantiating: src.explainer.generative.gans.graph.discriminators.SimpleDiscriminator
+2024-07-02 12:51:09,1930551382 | INFO | 28488 - Instantiating: torch.optim.SGD
+2024-07-02 12:51:09,1930551383 | INFO | 28488 - Instantiating: torch.nn.BCELoss
+2024-07-02 12:51:12,1930553902 | INFO | 28488 - Loading: GAN-ca0ddc67f67a45378766140a204356ab
+2024-07-02 12:51:13,1930554752 | INFO | 28488 - Instantiating: src.utils.samplers.partial_order_samplers.PositiveAndNegativeEdgeSampler
+2024-07-02 12:51:15,1930557284 | INFO | 28488 - Creating: RSGG-bcb6f30571eb058600c13d442f0997cc
+2024-07-02 12:51:15,1930557285 | INFO | 28488 - RSGG trained on cpu in: 0.0010001659393310547 secs
+2024-07-02 12:51:15,1930557286 | INFO | 28488 - Saved: RSGG-bcb6f30571eb058600c13d442f0997cc
+2024-07-02 12:51:15,1930557292 | INFO | 28488 - Created: RSGG-bcb6f30571eb058600c13d442f0997cc
+2024-07-02 12:51:15,1930557292 | INFO | 28488 - Evaluating the explainers.............................................................
+2024-07-02 12:55:57,1930838923 | INFO | 28488 - Evaluating instance with id 16
+2024-07-02 12:55:59,1930841415 | INFO | 28488 - evaluated instance with id 16
+2024-07-02 13:25:09,1932591148 | INFO | 28488 - Evaluating instance with id 10177
+2024-07-02 13:25:12,1932593697 | INFO | 28488 - evaluated instance with id 10177
+2024-07-02 13:55:20,1934401869 | INFO | 28488 - Evaluating instance with id 20469
+2024-07-02 13:55:20,1934401953 | INFO | 28488 - evaluated instance with id 20469
