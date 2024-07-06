@@ -1,0 +1,10 @@
+2024-07-05 15:49:58,-2094487464 | INFO | 6348 - Executing: config/RDT_GCN_RSGG.jsonc Run: -1
+2024-07-05 15:49:58,-2094487464 | INFO | 6348 - Creating the evaluation manager.......................................................
+2024-07-05 15:49:58,-2094487463 | INFO | 6348 - Creating the PAIRED evaluators...............................................................
+2024-07-05 15:50:00,-2094484927 | INFO | 6348 - Loading: REDDIT-afb11d5932fc65bf73e20d26097e9003
+2024-07-05 15:50:10,-2094475677 | INFO | 6348 - Created: REDDIT-afb11d5932fc65bf73e20d26097e9003
+2024-07-05 15:50:34,-2094450905 | INFO | 6348 - Instantiating: src.oracle.nn.gcn.DownstreamGCN
+2024-07-05 15:50:34,-2094450902 | INFO | 6348 - Instantiating: torch.optim.AdamW
+2024-07-05 15:50:34,-2094450900 | INFO | 6348 - Instantiating: torch.nn.CrossEntropyLoss
+2024-07-05 15:50:37,-2094448369 | INFO | 6348 - Loading: OracleTorch-54feafa52d2d5e73b860b47a09bd7efd
+2024-07-05 15:50:38,-2094447518 | INFO | 6348 - Created: OracleTorch-54feafa52d2d5e73b860b47a09bd7efd

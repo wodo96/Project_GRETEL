@@ -124,7 +124,7 @@ class Evaluator(ABC):
         #Modified to reduce the log generated.
         i=0
         for inst in test_set:
-            if (i%1000 == 0):
+            if (inst.id > i):
                 self._logger.info("Evaluating instance with id %s", str(inst.id))
 
             for metric in self._evaluation_metrics:
@@ -134,9 +134,9 @@ class Evaluator(ABC):
                     self._explanations.append(counterfactual)
 
             self._real_evaluate(inst, counterfactual,self._oracle,self._explainer,self._data)
-            if (i%1000 == 0):
+            if (inst.id > i):
                 self._logger.info('evaluated instance with id %s', str(inst.id))
-            i+=1
+                i+=1000
 
         self._logger.info(self._results)
     

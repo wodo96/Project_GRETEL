@@ -4,7 +4,7 @@
         "parameters" : {
             "lock_release_tout":120,
             "propagate":[
-                {"in_sections" : ["explainers"],"params" : {"fold_id": 0, "retrain": false}},
+                {"in_sections" : ["explainers"],"params" : {"fold_id": 0, "retrain": true}},
                 {"in_sections" : ["do-pairs/oracle"],"params" : {"fold_id": -1,"retrain": false}},
                 {"in_sections": ["do-pairs/dataset"],"params": { "compose_man" : "config/snippets/datasets/centr_and_weights.json" }}
             ]
@@ -28,13 +28,13 @@
       "oracle": {
         "class": "src.oracle.nn.torch.OracleTorch",
         "parameters": {
-            "epochs": 100,
-            "batch_size": 64, 
+            "epochs": 150, //100 best so far
+            "batch_size": 48, //48 best with 0.7664 accuracy
             "optimizer": {
                 "class": "torch.optim.AdamW",
                 "parameters": {
-                    "lr":1e-2, //1e-3, 1e-2
-                    "weight_decay":1e-1 // 0, 1e-1, 1e-2, 1e-3, 1e-4
+                    "lr":1e-3, //1e-3, 1e-2
+                    "weight_decay":1e-3 // 0, 1e-1, 1e-2, 1e-3, 1e-4
                 }
               },
             "loss_fn": {
@@ -46,10 +46,10 @@
             "model": {
               "class": "src.oracle.nn.gcn.DownstreamGCN",
               "parameters": {
-                "num_conv_layers":2,  
-                "num_dense_layers":2, 
-                "conv_booster":2, 
-                "linear_decay":2 
+                "num_conv_layers":1,  
+                "num_dense_layers":3,
+                "conv_booster":4, 
+                "linear_decay":1 
               }
             }
           }
@@ -68,7 +68,37 @@
         "parameters": {
           "epochs": 100
         }
+      },
+      {
+        "class": "src.explainer.generative.gcountergan.GCounteRGAN",
+        "parameters": {
+          "epochs": 100
+        }
+      },
+      {
+        "class": "src.explainer.generative.clear.CLEARExplainer",
+        "parameters": {
+          "epochs": 100
+        }
+      },
+      {
+        "class": "src.explainer.generative.cf2.CF2Explainer",
+        "parameters": {
+          "epochs": 100
+        }
+      },
+      {
+        "class": "src.explainer.heuristic.obs.ObliviousBidirectionalSearchExplainer",
+        "parameters": {
+          "epochs": 100
+        }
       }
+      /*,{
+        "class": "src.explainer.search.i rand.IRandExplainer",
+        "parameters": {
+          "epochs": 100
+        }
+      }*/
     ],
     "compose_mes" : "config/snippets/default_metrics.json",
     "compose_strs" : "config/snippets/default_store_paths.json"

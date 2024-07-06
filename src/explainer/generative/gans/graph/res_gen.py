@@ -58,7 +58,8 @@ class ResGenerator(nn.Module):
         if self.residuals: #TODO: Fix the booster expansion if make sense
             encoded_node_features = encoded_node_features.repeat(1, node_features.size(1) // encoded_node_features.size(1))
             encoded_node_features = torch.add(encoded_node_features, node_features)
-            edge_probabilities += rebuild_adj_matrix(len(node_features), edge_list, edge_attr.T,self.device)
+            #edge_probabilities += rebuild_adj_matrix(len(node_features), edge_list, edge_attr.T,self.device)
+            edge_probabilities += rebuild_adj_matrix(len(node_features), edge_list, edge_attr.permute(*torch.arange(edge_attr.ndim - 1, -1, -1)),self.device)
             
         return encoded_node_features, edge_list, torch.sigmoid(edge_probabilities)
     

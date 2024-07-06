@@ -47,7 +47,8 @@ class GAN(BaseGAN):
             real_pred = self.discriminator(node_features[1], edge_index[1], edge_features[1]).expand(1)
             fake_pred = self.discriminator(fake_node_features[1], fake_edge_index, fake_edge_features[1]).expand(1)
             y_pred = torch.cat([real_pred, fake_pred])
-            loss = torch.mean(self.loss_fn(y_pred.squeeze().double(), y_batch.double()) * torch.tensor(oracle_scores, dtype=torch.float))
+            #loss = torch.mean(self.loss_fn(y_pred.squeeze().double(), y_batch.double()) * torch.tensor(oracle_scores, dtype=torch.float))
+            loss = torch.mean(self.loss_fn(y_pred.squeeze().double(), y_batch.double()) * oracle_scores.clone().detach().to(dtype=torch.float))
             D_losses.append(loss.item())
             loss.backward()
             self.discriminator_optimizer.step()
@@ -88,7 +89,7 @@ class GAN(BaseGAN):
                 
             instances.append(GraphInstance(id="dummy",
                                            label=1-self.explainee_label if counterfactual else self.explainee_label,
-                                           data=rebuild_adj_matrix(len(node_features[i]), edges[i], unbatched_edge_features.T, self.device).detach().cpu().numpy(),
+                                           data=rebuild_adj_matrix(len(node_features[i]), edges[i], unbatched_edge_features.permute(*torch.arange(unbatched_edge_features.ndim - 1, -1, -1)), self.device).detach().cpu().numpy(),
                                            node_features=node_features[i].detach().cpu().numpy(),
                                            edge_features=unbatched_edge_features.detach().cpu().numpy()))
         return instances

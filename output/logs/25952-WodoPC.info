@@ -1,0 +1,17 @@
+2024-07-05 15:52:18,-2094346941 | INFO | 25952 - Executing: config/RDT_GCN_RSGG.jsonc Run: -1
+2024-07-05 15:52:18,-2094346941 | INFO | 25952 - Creating the evaluation manager.......................................................
+2024-07-05 15:52:18,-2094346940 | INFO | 25952 - Creating the PAIRED evaluators...............................................................
+2024-07-05 15:52:21,-2094344316 | INFO | 25952 - Loading: REDDIT-afb11d5932fc65bf73e20d26097e9003
+2024-07-05 15:52:30,-2094334781 | INFO | 25952 - Created: REDDIT-afb11d5932fc65bf73e20d26097e9003
+2024-07-05 15:52:54,-2094310798 | INFO | 25952 - Instantiating: src.oracle.nn.gcn.DownstreamGCN
+2024-07-05 15:52:54,-2094310795 | INFO | 25952 - Instantiating: torch.optim.AdamW
+2024-07-05 15:52:54,-2094310793 | INFO | 25952 - Instantiating: torch.nn.CrossEntropyLoss
+2024-07-05 15:52:57,-2094308256 | INFO | 25952 - Loading: OracleTorch-54feafa52d2d5e73b860b47a09bd7efd
+2024-07-05 15:52:58,-2094307405 | INFO | 25952 - Created: OracleTorch-54feafa52d2d5e73b860b47a09bd7efd
+2024-07-05 15:52:58,-2094307392 | INFO | 25952 - Instantiating: src.explainer.generative.gans.image.model.GAN
+2024-07-05 15:52:58,-2094307266 | INFO | 25952 - Instantiating: src.explainer.generative.gans.image.generators.ResGenerator
+2024-07-05 15:53:17,-2094288503 | INFO | 25952 - Instantiating: torch.optim.SGD
+2024-07-05 15:53:17,-2094288502 | INFO | 25952 - Instantiating: src.explainer.generative.gans.image.discriminators.SimpleDiscriminator
+2024-07-05 15:53:17,-2094288488 | INFO | 25952 - Instantiating: torch.optim.SGD
+2024-07-05 15:53:17,-2094288488 | INFO | 25952 - Instantiating: torch.nn.BCELoss
+2024-07-05 15:54:27,-2094218185 | INFO | 25952 - Creating: GAN-6c762c046979e2b972293f8b75fff13c
