@@ -66,7 +66,11 @@
       {
         "class": "src.explainer.generative.cf2.CF2Explainer",
         "parameters": {
-          "epochs": 100
+          "epochs": 100,
+          "batch_size_ratio": 0.1,
+          "fold_id": 0,
+          "retrain": true,
+          "weight_decay": 1e-3
         }
       }
     ],
