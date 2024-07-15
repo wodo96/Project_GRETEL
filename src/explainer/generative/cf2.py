@@ -76,8 +76,10 @@ class CF2Explainer(Trainable, Explainer):
             cf_instance = deepcopy(instance)
 
             weighted_adj = self.model._rebuild_weighted_adj(instance)
-            masked_adj = self.model.get_masked_adj(weighted_adj).numpy()
-            # update instance copy from masked_ajd
+            if(self.device == "cuda"):
+                masked_adj = self.model.get_masked_adj(weighted_adj).cpu().numpy()            # update instance copy from masked_ajd
+            else:
+                masked_adj = self.model.get_masked_adj(weighted_adj).numpy()
             # cf_instance.data = masked_adj        
 
             new_adj = np.where(masked_adj != 0, 1, 0)
@@ -101,15 +103,18 @@ class ExplainModelGraph(torch.nn.Module):
 
         self.n_nodes = n_nodes
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        print(self.device)
         self.mask = self.build_adj_mask()
 
-    def forward(self, graph : GraphInstance, oracle : Oracle):        
+    def forward(self, graph: GraphInstance, oracle: Oracle):
         pred1 = oracle.predict(graph)
 
         # re-build weighted adjacency matrix
         weighted_adj = self._rebuild_weighted_adj(graph)
         # get the masked_adj
         masked_adj = self.get_masked_adj(weighted_adj)
+        # Assicurati che masked_adj sia sullo stesso dispositivo di weighted_adj
+        masked_adj = masked_adj.to(weighted_adj.device)
         # get the new weights as the difference between
         # the weighted adjacency matrix and the masked learned
         new_weights = weighted_adj - masked_adj
@@ -139,6 +144,8 @@ class ExplainModelGraph(torch.nn.Module):
     def get_masked_adj(self, weights):
         sym_mask = torch.sigmoid(self.mask)
         sym_mask = (sym_mask + sym_mask.t()) / 2
+        # Assicurati che weights sia sullo stesso dispositivo di self.mask
+        weights = weights.to(self.mask.device)
         masked_adj = weights * sym_mask
         return masked_adj
 
@@ -148,6 +155,9 @@ class ExplainModelGraph(torch.nn.Module):
         bpr2 = torch.nn.functional.relu(gam + pred2 - 0.5)  # counterfactual
         masked_adj = torch.flatten(self.get_masked_adj(weights))
         L1 = torch.linalg.norm(masked_adj, ord=1)
+        L1 = L1.to(self.device)
+        bpr1 = bpr1.to(self.device)
+        bpr2 = bpr2.to(self.device)
         return L1 + lam * (alp * bpr1 + (1 - alp) * bpr2)
     
     
@@ -155,15 +165,14 @@ class ExplainModelGraph(torch.nn.Module):
     def _rebuild_weighted_adj(self, graph):
         weights = np.zeros((self.n_nodes, self.n_nodes))
 
-        u = []
-        v = []
-        for i, j in zip(*np.nonzero(graph.data)):
-            if i < j:
-                u.append(i)
-                v.append(j)
-        #print(graph.edge_weights.shape)
-        #print(graph.edge_weights)
-        #print(u)
-        #print(v)
-        weights[u+v,v+u] = graph.edge_weights
+        u, v = graph.data.nonzero()
+
+        if len(graph.edge_weights) != len(u):
+            raise ValueError("Il numero di pesi non corrisponde al numero di archi.")
+        
+        for i in range(len(u)):
+            weights[u[i], v[i]] = graph.edge_weights[i]
+            weights[v[i], u[i]] = graph.edge_weights[i]
+        
+        #weights[u+v,v+u] = graph.edge_weights
         return torch.from_numpy(weights).float()

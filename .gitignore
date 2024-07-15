@@ -132,7 +132,7 @@ dmypy.json
 
 # data folders
 data/cache*
-data/datasets/reddit_threads/
+data/datasets/
 lab/data/cache*
 lab/results_legacy*
 lab/stats_legacy*
