@@ -346,14 +346,15 @@ class CLEAR(nn.Module):
         
         return features_reconst, adj_reconst
     
-    def graph_pooling(self, x, type='mean'):
-        if type == 'max':
-            out, _ = torch.max(x, dim=1, keepdim=False)
-        elif type == 'sum':
-            out = torch.sum(x, dim=1, keepdim=False)
-        elif type == 'mean':
-            out = torch.sum(x, dim=1, keepdim=False)
-        return out
+    def graph_pooling(self, graph_rep, pool_type):
+        #print("Pool_type: ", pool_type)
+        #print("Graph_rep: ", graph_rep)
+        if 'sum' in pool_type:
+            return torch.sum(graph_rep, dim=1)
+        elif 'mean' in pool_type:
+            return torch.mean(graph_rep, dim=1)
+        elif 'max' in pool_type:
+            return torch.max(graph_rep, dim=1)
     
     def prior_params(self, causality): # P(Z | causality)
         if self.disable_u:

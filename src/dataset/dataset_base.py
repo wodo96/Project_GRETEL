@@ -56,6 +56,9 @@ class Dataset(Savable):
             
     def _create_manipulators(self):
         manipulator_instances = []
+        #print("Parameters are: ",self.local_config['parameters'])
+        #print("Manipulators are: ",self.local_config['parameters']['manipulators'])
+        
         for manipulator in self.local_config['parameters']['manipulators']:
             self.context.logger.info("Apply: "+manipulator['class'])
             manipulator_instances.append(get_instance_kvargs(manipulator['class'],
