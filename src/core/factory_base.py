@@ -23,8 +23,15 @@ def get_instance(kls, param):
     return  get_class(kls)(param)
 
 def get_class( kls ):
+    #print("parts before: ", kls)
     parts = kls.split('.')
+    #print("parts: ", parts)
+    if ("i rand" in parts):
+        kls = kls.replace("i rand", "i_rand")
+        parts = None
+        parts = kls.split('.')
     module = ".".join(parts[:-1])
+    #print("module:", module)
     m = __import__( module )
     for comp in parts[1:]:
         m = getattr(m, comp)            

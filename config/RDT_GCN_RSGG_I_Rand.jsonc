@@ -66,7 +66,10 @@
       {
         "class": "src.explainer.search.i rand.IRandExplainer",
         "parameters": {
-          "epochs": 100
+          "fold_id": 0,
+          "epochs": 100,
+          "p": 0.1,
+          "t": 3
         }
       }
     ],
