@@ -66,6 +66,7 @@
       {
         "class": "src.explainer.generative.gcountergan.GCounteRGAN",
         "parameters": {
+          "fold_id": 0,
           "epochs": 100
         }
       }

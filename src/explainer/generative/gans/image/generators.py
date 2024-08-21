@@ -28,9 +28,11 @@ class ResGenerator(nn.Module):
             else "cpu"
         )
         
-        self.conv1 = nn.Conv2d(in_channels=1, out_channels=64, kernel_size=conv_kernel, stride=conv_stride)
-        self.conv2 = nn.Conv2d(in_channels=64, out_channels=64, kernel_size=conv_kernel, stride=conv_stride)
-        
+        self.conv1 = nn.Conv2d(in_channels=1, out_channels=64, kernel_size=conv_kernel, stride=conv_stride, padding=self.__get_same_padding(conv_kernel,conv_stride))
+        self.conv2 = nn.Conv2d(in_channels=64, out_channels=64, kernel_size=conv_kernel, stride=conv_stride, padding=self.__get_same_padding(conv_kernel,conv_stride))
+        #If it doesn't work, use: self.__get_same_padding(conv_kernel,conv_stride)
+        #for self.conv1 and self.conv2
+
         self.deconv1 = nn.ConvTranspose2d(in_channels=128, out_channels=64, kernel_size=deconv_kernel, stride=deconv_stride, padding=1)
         self.deconv2 = nn.ConvTranspose2d(in_channels=64, out_channels=64, kernel_size=deconv_kernel, stride=deconv_stride, padding=1)
         
@@ -89,6 +91,24 @@ class ResGenerator(nn.Module):
         x = self.final_conv(x)
         x = torch.tanh(x) # Tanh values are in [-1, 1] so allow the residual to add or remove edges
         # building the counterfactual example from the union of the residuals and the original instance
+        '''print("x: ",x)
+        print("x size: ",x.size())
+        print("x shape: ",x.shape)
+        print("is x equal to graph: ",x.data.is_same_size(graph.data))
+        print("graph: ",graph)
+        print("graph size: ",graph.size())
+        print("graph shape: ",graph.shape)'''
+        if x.size() != graph.size():
+            print("Le dimensioni sono diverse, eseguo il reshape di x")
+            '''try:
+                #x = torch.reshape(x, graph.size())
+                graph1 = graph.resize_(1, 1, 96, 96)
+                print("new graph: ",graph1.shape)
+            except RuntimeError as e:
+                print("Errore: ",e)'''
+            graph = graph.resize_(x.shape)
+            #print(graph.shape)
+
         if self.residuals:
             x = torch.add(graph, x)
         # delete self loops
@@ -97,6 +117,11 @@ class ResGenerator(nn.Module):
             
         mask = ~torch.eye(self.num_nodes, dtype=bool)
         mask = torch.stack([mask] * x.shape[0])[:,None,:,:]
+        #print("mask: ", mask)
+        #print("mask size: ", mask.shape)
+        mask = mask.resize_(x.shape)
+        #print("mask size after change: ", mask.shape)
+
         x[mask] = torch.sigmoid(x[mask])
         
         x = (torch.rand_like(x) < x).to(torch.float)

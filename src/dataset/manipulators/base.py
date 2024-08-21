@@ -65,6 +65,10 @@ class BaseManipulator(Configurable):
         return dataset_map
     
     def __process_features(self, features, curr_map, dataset_map):
+        #print("features shape before processing:", features.shape if isinstance(features, np.ndarray) else "Not an ndarray")
+        #print("curr_map:", curr_map)
+        #print("dataset_map:", dataset_map)
+
         if curr_map:
             if not isinstance(features, np.ndarray):
                 features = np.array([])
@@ -80,9 +84,29 @@ class BaseManipulator(Configurable):
                                 constant_values=0)
             else:
                 features = np.zeros((len(list(curr_map.values())[0]), len(dataset_map)))
-                
+            #print("features shape after padding/initialization:", features.shape)
+            
             for key in curr_map:
                 index = dataset_map[key]
-                features[:, index] = curr_map[key]
-                            
+                try:
+                    if features[:, index].shape != np.array(curr_map[key]).shape:
+                        #print(f"Dimension mismatch for key {key}: reshaping curr_map[{key}] from shape {np.array(curr_map[key]).shape} to {features[:, index].shape}")
+                        curr_map[key] = np.reshape(curr_map[key], features[:, index].shape)
+                    features[:, index] = curr_map[key]
+                except Exception as e:
+                    #print(f"Error processing key {key}: {e}")
+                    #print("Features: ",features)
+                    #print("curr_map: ",curr_map)
+                    try:
+                        target_shape = features[:, index].shape
+                        reshaped_array = np.zeros(target_shape)
+                        reshaped_array[:np.array(curr_map[key]).shape[0]] = np.array(curr_map[key])
+                        curr_map[key] = reshaped_array
+                        features[:, index] = curr_map[key]
+                    except Exception as inner_e:
+                        print(f"Error forcing reshape for key {key}: {inner_e}")
+                        print("Features: ", features)
+                        print("curr_map: ", curr_map)
+                        raise
+
         return features

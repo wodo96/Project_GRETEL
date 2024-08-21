@@ -38,6 +38,7 @@ class GAN(BaseGAN):
         # TODO: make it multiclass in Dataset
         generator_loader = self.infinite_data_stream(generator_loader)
 
+        print("starting into image.Model.py file")
         for epoch in range(self.epochs):
             G_losses, D_losses = [], []
             #######################################################################
@@ -63,7 +64,7 @@ class GAN(BaseGAN):
             real_pred = self.discriminator(f_graph)
             fake_pred = self.discriminator(cf_graph)
             y_pred = torch.cat([real_pred, fake_pred])
-            loss = torch.mean(self.loss_fn(y_pred.squeeze().double(), y_batch.double()) * torch.tensor(oracle_scores, dtype=torch.float))
+            loss = torch.mean(self.loss_fn(y_pred.squeeze().double(), y_batch.double()) * torch.tensor(oracle_scores.clone().detach(), dtype=torch.float))
             D_losses.append(loss.item())
             loss.backward()
             self.discriminator_optimizer.step()

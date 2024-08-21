@@ -70,6 +70,7 @@ class TorchBase(Trainable):
         local_config['parameters']['epochs'] = local_config['parameters'].get('epochs', 200)
         local_config['parameters']['batch_size'] = local_config['parameters'].get('batch_size', 4)
         # populate the optimizer
+        print("i'm checking the configurations")
         init_dflts_to_of(local_config, 'optimizer', 'torch.optim.Adam',lr=0.001)
         init_dflts_to_of(local_config, 'loss_fn', 'torch.nn.BCELoss')
         

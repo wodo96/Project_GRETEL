@@ -24,6 +24,7 @@ class GAN(BaseGAN):
         # TODO: make it multiclass in Datase
         generator_loader = self.infinite_data_stream(self.dataset.get_torch_loader(fold_id=self.fold_id, batch_size=self.batch_size, kls=1-self.explainee_label))
 
+        print("starting into image.Model.py file")
         for epoch in range(self.epochs):
             G_losses, D_losses = [], []
             #######################################################################
