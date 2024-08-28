@@ -88,8 +88,9 @@ class REDDIT(Generator):
             if (i % 50000 == 0):
                 print("Graphs processed: " + str(i))
             data = self.normalization_mat(np.asarray(dict_graf[i]))
-            graphInstance = (GraphInstance(i,graph_labels[i-1],data))
-            self.dataset.instances.append(graphInstance)
+            if data is not None:
+                graphInstance = GraphInstance(i, graph_labels[i - 1], data)
+                self.dataset.instances.append(graphInstance)
         
 
     def normalization_mat(self, data):

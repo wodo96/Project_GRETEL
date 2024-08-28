@@ -4,7 +4,7 @@
         "parameters" : {
             "lock_release_tout":120,
             "propagate":[
-                {"in_sections" : ["explainers"],"params" : {"fold_id": 0, "retrain": true}},
+                {"in_sections" : ["explainers"],"params" : {"fold_id": 4, "retrain": true}},
                 {"in_sections" : ["do-pairs/oracle"],"params" : {"fold_id": -1,"retrain": false}},
                 {"in_sections": ["do-pairs/dataset"],"params": { "compose_man" : "config/snippets/datasets/centr_and_weights.json" }}
             ]
@@ -19,7 +19,7 @@
                   "class": "src.dataset.generators.reddit_threads.REDDIT", 
                   "parameters": {
                     "data_dir": "data/datasets/",
-                    "max_nodes" : 97, 
+                    "max_nodes" : 75, 
                     "number_of_graphs" : 203088
                   }
               }
@@ -66,7 +66,7 @@
       {
         "class": "src.explainer.generative.gcountergan.GCounteRGAN",
         "parameters": {
-          "fold_id": 0,
+          "fold_id": 4,
           "epochs": 100
         }
       }

@@ -99,7 +99,7 @@ class ResGenerator(nn.Module):
         print("graph size: ",graph.size())
         print("graph shape: ",graph.shape)'''
         if x.size() != graph.size():
-            print("Le dimensioni sono diverse, eseguo il reshape di x")
+            #print("Le dimensioni sono diverse, eseguo il reshape di x")
             '''try:
                 #x = torch.reshape(x, graph.size())
                 graph1 = graph.resize_(1, 1, 96, 96)
